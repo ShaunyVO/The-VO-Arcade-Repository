@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>The VO Arcade — Console</title>
+<meta name="description" content="Client, referrer and invoice console for The VO Arcade, with automatic Gmail reminders." />
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#18100E" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="VO Arcade" />
+<link rel="apple-touch-icon" href="icons/icon-180.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16.png" />
+
+<style>
+  html, body { margin: 0; padding: 0; background: #0F0B09; }
+  #root { min-height: 100vh; }
+  * { box-sizing: border-box; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #4A362D; border-radius: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  @keyframes voarcade-spin { to { transform: rotate(360deg); } }
+</style>
+
+<!-- React (no build step needed) -->
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
+
+<!-- Google Identity Services (for Gmail sign-in / reminder emails) -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react" src="app.js"></script>
+
+<script>
+  // Register the service worker so the app can be installed and used offline.
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    });
+  }
+</script>
+</body>
+</html>
